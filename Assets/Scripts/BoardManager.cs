@@ -51,7 +51,7 @@ public class BoardManager : MonoBehaviour {
     void BoardSetup() {
         boardHolder = new GameObject("Board").transform;
         for (int x = -1; x < columns + 1; x++) {
-            for (int y = 0; y < row + 1; y++) {
+            for (int y = -1; y < row + 1; y++) {
                 //ランダムに床のプレハブを設定
                 GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)]; 
                 //外壁の位置ならランダムな外壁を設定
@@ -104,6 +104,13 @@ public class BoardManager : MonoBehaviour {
         InitialiseList();
         LayoutObjectAtRandom(walltiles, wallCount.minmum, wallCount.maximum);
         LayoutObjectAtRandom(foodTiles, foodCount.minmum, foodCount.maximum);
+
+        //敵の配置
         int enemyCount = (int)Mathf.Log(level, 2f);
+        Debug.Log("enemyCount:" + enemyCount);
+        LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
+
+        //出口の配置
+        Instantiate(exit, new Vector3(columns - 1, row - 1, 0f), Quaternion.identity);
     }
 }
