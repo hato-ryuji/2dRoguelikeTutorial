@@ -4,12 +4,18 @@ using UnityEngine;
 
 public abstract class MovingObjct : MonoBehaviour {
 
+    /// <summary>
+    /// 1回の移動にかかる時間（秒）
+    /// </summary>
     public float moveTime = 0.1f;
     public LayerMask blockingLayer;
 
 
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb2D;
+    /// <summary>
+    /// 移動時間の逆数
+    /// </summary>
     private float inverseMoveTime;
 
 
@@ -20,6 +26,16 @@ public abstract class MovingObjct : MonoBehaviour {
         inverseMoveTime = 1 / moveTime;
 	}
 
+    /// <summary>
+    /// ゲームオブジェクト移動処理
+    /// </summary>
+    /// <param name="xDir">x軸の移動量</param>
+    /// <param name="yDir">y軸の移動量</param>
+    /// <param name="hit">接触したゲームオブジェクト（移動先にすでにゲームオブジェクトがいた場合）</param>
+    /// <returns>
+    ///     true:移動が行われた
+    ///     false:移動を行わなかった
+    /// </returns>
     protected bool Move(int xDir, int yDir, out RaycastHit2D hit) {
         Vector2 start = transform.position;
         Vector2 end = start + new Vector2(xDir, yDir);
@@ -35,10 +51,20 @@ public abstract class MovingObjct : MonoBehaviour {
         return false;
     }
 	
+    /// <summary>
+    /// キャラクターを滑らかに移動させる
+    /// </summary>
+    /// <param name="end">移動目標座標</param>
+    /// <returns></returns>
     protected IEnumerator SmoothMovement(Vector3 end) {
+        /* 
+         * 現在値の差分のベクトルの二乗を取得
+         * 現在座標と終了座標が同じ場所になれば０になると思われる。
+         */
         float sqrRemainningDistance = (transform.position - end).sqrMagnitude;
 
         while (sqrRemainningDistance > float.Epsilon) {
+            //この辺は移動処理だと思われる
             Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
             rb2D.MovePosition(newPosition);
             sqrRemainningDistance = (transform.position - end).sqrMagnitude;

@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-    //Singletonパターン
+    /// <summary>
+    /// インスタンス（Singletonパターン）
+    /// </summary>
     public static GameManager instance = null;
 
     public BoardManager boardScript;
@@ -27,12 +29,10 @@ public class GameManager : MonoBehaviour {
         InitGame();
 	}
 
+    /// <summary>
+    /// ゲーム初期化処理
+    /// </summary>
     void InitGame() {
         boardScript.SetupSence(level);
     }
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }
