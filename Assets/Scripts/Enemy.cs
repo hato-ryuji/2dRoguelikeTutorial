@@ -43,7 +43,7 @@ public class Enemy : MovingObjct {
 
     protected override void OnCanMove<T>(T component) {
         Player hitPlayer = component as Player;
-        animator.SetTrigger("enemyAttak");
+        animator.SetTrigger("enemyAttack");
         hitPlayer.LoseFood(playerDamage);
     }
 }
