@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
+    public float turnDelay = .1f;
     /// <summary>
     /// インスタンス（Singletonパターン）
     /// </summary>
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour {
 
 
     private int level = 3;
+    private List<Enemy> enemies;
+    private bool enemiesMoving;
 
 	// Use this for initialization
 	void Awake () {
@@ -28,7 +31,7 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
-
+        enemies = new List<Enemy>();
         boardScript = GetComponent<BoardManager>();
         InitGame();
 	}
@@ -37,10 +40,36 @@ public class GameManager : MonoBehaviour {
     /// ゲーム初期化処理
     /// </summary>
     void InitGame() {
+        enemies.Clear();
         boardScript.SetupSence(level);
     }
 
     public void GameOver() {
         enabled = false;
+    }
+
+    void Update() {
+        if (playerTurn || enemiesMoving) {
+            return;
+        }
+        StartCoroutine(MoveEnemies());
+    }
+
+    public void AddEnemyToList(Enemy script) {
+        enemies.Add(script);
+    }
+
+    IEnumerator MoveEnemies() {
+        enemiesMoving = true;
+        yield return new WaitForSeconds(turnDelay);
+        if (enemies.Count == 0) {
+            yield return new WaitForSeconds(turnDelay);
+        }
+        foreach (var enemy in enemies) {
+            enemy.MoveEnemy();
+            yield return new WaitForSeconds(turnDelay);
+        }
+        playerTurn = true;
+        enemiesMoving = false;
     }
 }
