@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour {
 
     public BoardManager boardScript;
 
+    public int playerFoodPoint = 100;
+    [HideInInspector] public bool playerTurn = true;
+
+
     private int level = 3;
 
 	// Use this for initialization
@@ -34,5 +38,9 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     void InitGame() {
         boardScript.SetupSence(level);
+    }
+
+    public void GameOver() {
+        enabled = false;
     }
 }
