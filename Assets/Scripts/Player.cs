@@ -75,9 +75,11 @@ public class Player : MovingObjct {
     }
 
     protected override void OnCanMove<T>(T component) {
+        Debug.Log("OnCanMove 開始");
         Wall hitWall = component as Wall;
         hitWall.DamageWall(wallDamage);
         animator.SetTrigger("playerChop");
+        Debug.Log("OnCanMove　終了");
     }
 
     protected void Restart() {
