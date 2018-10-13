@@ -5,10 +5,13 @@ using UnityEngine;
 public class Enemy : MovingObjct {
 
     public int playerDamage;
+    public AudioClip enemyAttack2;
+    public AudioClip enemyAttack1;
 
     private Animator animator;
     private Transform target;
     private bool skipMove;
+    
 
 	// Use this for initialization
 	protected override void Start () {
@@ -45,5 +48,6 @@ public class Enemy : MovingObjct {
         Player hitPlayer = component as Player;
         animator.SetTrigger("enemyAttack");
         hitPlayer.LoseFood(playerDamage);
+        SoundManager.instance.RandomizeSfx(enemyAttack1, enemyAttack2);
     }
 }
