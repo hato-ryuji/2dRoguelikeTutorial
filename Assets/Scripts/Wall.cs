@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 壁
+/// </summary>
 public class Wall : MonoBehaviour {
     /// <summary>
     /// ダメージを受けている状態の画像

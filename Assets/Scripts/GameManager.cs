@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// ゲーム管理用クラス
+/// Singletonpaパターン採用。
+/// 
+/// </summary>
 public class GameManager : MonoBehaviour {
     public float levelStartDelay = 2f;
     public float turnDelay = .1f;
@@ -55,7 +60,7 @@ public class GameManager : MonoBehaviour {
         levelImage.SetActive(true);
         Invoke("HideLevelImage", levelStartDelay);
         enemies.Clear();
-        boardScript.SetupSence(level);
+        boardScript.SetupScene(level);
     }
 
     /// <summary>
@@ -66,6 +71,9 @@ public class GameManager : MonoBehaviour {
         doingSetup = false;
     }
 
+    /// <summary>
+    /// ゲームオーバー時の制御
+    /// </summary>
     public void GameOver() {
         levelText.text = "After " + level + " days, you starved.";
         levelImage.SetActive(true);

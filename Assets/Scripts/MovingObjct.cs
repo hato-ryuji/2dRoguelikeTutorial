@@ -72,7 +72,13 @@ public abstract class MovingObjct : MonoBehaviour {
         }
     }
 
-    protected virtual void AttempMove<T>(int xDir, int yDir)
+    /// <summary>
+    /// 移動を試みる
+    /// </summary>
+    /// <typeparam name="T">ぶつかったオブジェクト</typeparam>
+    /// <param name="xDir">X軸の移動量</param>
+    /// <param name="yDir">Y軸の移動量</param>
+    protected virtual void AttemptMove<T>(int xDir, int yDir)
         where T : Component {
         RaycastHit2D hit;
         bool canMove = Move(xDir, yDir, out hit);

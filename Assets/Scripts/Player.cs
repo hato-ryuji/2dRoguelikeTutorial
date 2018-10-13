@@ -74,15 +74,15 @@ public class Player : MovingObjct {
 #endif
 
         if (horizontal != 0 || vertical != 0) {
-            AttempMove<Wall>(horizontal, vertical);
+            AttemptMove<Wall>(horizontal, vertical);
         }
     }
 
-    protected override void AttempMove<T>(int xDir, int yDir) {
+    protected override void AttemptMove<T>(int xDir, int yDir) {
         food--;
         foodText.text = "Food: " + food;
 
-        base.AttempMove<T>(xDir, yDir);
+        base.AttemptMove<T>(xDir, yDir);
 
         RaycastHit2D hit;
         if (Move (xDir, yDir, out hit)) {

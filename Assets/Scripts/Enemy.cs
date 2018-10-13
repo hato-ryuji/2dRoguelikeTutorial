@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 敵キャラクターの制御
+/// </summary>
 public class Enemy : MovingObjct {
 
     public int playerDamage;
@@ -21,13 +24,19 @@ public class Enemy : MovingObjct {
         base.Start();
 	}
 
-    protected override void AttempMove<T>(int xDir, int yDir) {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="xDir"></param>
+    /// <param name="yDir"></param>
+    protected override void AttemptMove<T>(int xDir, int yDir) {
         if (skipMove) {
             skipMove = false;
             return;
         }
 
-        base.AttempMove<T>(xDir, yDir);
+        base.AttemptMove<T>(xDir, yDir);
         skipMove = true;
     }
 
@@ -41,7 +50,7 @@ public class Enemy : MovingObjct {
         else {
             xDir = target.position.x > transform.position.x ? 1 : -1;
         }
-        AttempMove<Player>(xDir, yDir);
+        AttemptMove<Player>(xDir, yDir);
     }
 
     protected override void OnCanMove<T>(T component) {

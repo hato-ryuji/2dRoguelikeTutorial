@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using Random = UnityEngine.Random;
 using UnityEngine;
 
+/// <summary>
+/// ボード管理クラス
+/// ボード自動生成に使用
+/// </summary>
 public class BoardManager : MonoBehaviour {
 
     [Serializable]
@@ -99,7 +103,7 @@ public class BoardManager : MonoBehaviour {
     /// シーンのセットアップ
     /// </summary>
     /// <param name="level">難易度（現時点では敵の配置数に影響する）</param>
-    public void SetupSence(int level) {
+    public void SetupScene(int level) {
         BoardSetup();
         InitialiseList();
         LayoutObjectAtRandom(walltiles, wallCount.minmum, wallCount.maximum);
